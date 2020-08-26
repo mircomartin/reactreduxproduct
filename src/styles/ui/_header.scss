@@ -1,0 +1,93 @@
+.header {
+    background-color: #fff;
+    box-shadow: 0 1px 1px 0 rgba(0,0,0,.05);
+    p {
+        margin-bottom: 0;
+    }
+    &__logo {
+        background-color: $naranja;
+        color: #fff;
+        cursor: pointer;
+        font-size: 2rem;
+        font-weight: 700;
+        font-family: 'Roboto Slab', serif;
+        display: inline-block;
+        padding: 0 20px;
+        border-radius: 50%;
+        &:hover {
+            text-decoration: none;
+            color: #fff;
+        }
+    }
+    &__nav {
+        a {
+            font-size: 1rem;
+            margin-left: 2rem;
+            color: $gris2;
+            font-family: 'PT Sans', sans serif;
+            &:last-of-type {
+                margin-right: 0;
+            }
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    &__buscar {
+        margin-left: 20px;
+        input {
+            border: 1px solid gris3;
+            padding: 5px;
+            min-width: 300px;
+        }
+        button {
+            height: 2rem;
+            width: 2rem;
+            background-size: 100%;
+            background-image: url("/static/img/buscar.png");
+            background-repeat: no-repeat;
+            background-color: white;
+            border: none;
+            text-indent: -9999px;
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+    &__loginzone {
+        text-transform: uppercase;
+    }
+    &__login {
+        border: 1px solid #e8e8e8;
+        padding: 5px;
+        border-radius: 5px;
+        margin-right: 5px;
+        &:hover {
+            color: #000;
+            background-color: #F3F3F3;
+            text-decoration: none;
+        }
+    }
+    &__user {
+        display: inline-block;
+        font-weight: 700;
+        span {
+            color: $naranja;
+            margin: 0 10px;
+        }
+    }
+
+    &__new,
+    &__logout {
+        border: none;
+        padding: 5px;
+        border-radius: 5px;
+        margin-right: 5px;
+        background-color: $naranja;
+        color: #fff;
+        &:hover {
+            color: #000;
+            text-decoration: none;
+        }
+    }
+}
