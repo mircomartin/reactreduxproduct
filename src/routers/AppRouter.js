@@ -1,43 +1,56 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
-import { Header } from '../components/ui/Header';
-import { Home } from '../components/Pages/Home';
-import { Populares } from '../components/Pages/Populares';
-import LoginScreen from '../components/auth/LoginScreen';
-import RegisterScreen from '../components/auth/RegisterScreen';
+import { firebase } from './../firebase/firebase-config';
+import { login } from '../actions/auth';
+import { PrivateRoute } from './PrivateRoute';
+import { PublicRoute } from './PublicRoute';
+import { DashboardRoute } from './DashboardRoute';
+import { AuthRouter } from './AuthRouter';
 
 export const AppRouter = () => {
 
-    return (
+	const dispatch = useDispatch();
+
+	const [checking, setChecking] = useState(true);
+	const [isloggedin, setIsloggedin] = useState(false);
+
+	useEffect(() => {
+		firebase.auth().onAuthStateChanged(async (user) => {
+			if (user?.uid) {
+				dispatch(login(user.uid, user.displayName));
+				setIsloggedin(true);
+			} else {
+				setIsloggedin(false);
+			}
+			setChecking(false);
+		});
+	}, [dispatch, setChecking, setIsloggedin]);
+
+	if (checking) {
+		return <h1>Please Wait...</h1>;
+	}
+
+	return (
         <Router>
-            <Header/>
             <div>
-                <Switch>
-                    <Route
-                        exact 
-                        path="/home" 
-                        component={ Home }
+                <Switch> 
+                    <PublicRoute
+                        isAuthenticated={ isloggedin }
+                        path="/auth" 
+                        component={ AuthRouter } 
                     />
-                    <Route
-                        exact 
-                        path="/populares" 
-                        component={ Populares }
-                    />
-                    <Route 
-                        exact
-                        path="/auth/login"
-                        component={ LoginScreen }
-                    />
-                    <Route 
-                        exact
-                        path="/auth/register"
-                        component={ RegisterScreen }
+                    
+                    <PrivateRoute 
+                        path="/" 
+                        isAuthenticated={ isloggedin }
+                        component={ DashboardRoute } 
                     />
 
-                    <Redirect to="/home"/>
+                    <Redirect to="/auth/login" />
                 </Switch>
             </div>
         </Router>
-    )
-}
+	);
+};

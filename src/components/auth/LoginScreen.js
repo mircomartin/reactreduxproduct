@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
 import { useForm } from '../../hooks/useForm';
@@ -7,19 +8,18 @@ import { startLoginEmailAndPassword } from '../../actions/auth';
 const LoginScreen = () => {
 	const dispatch = useDispatch();
 
-	const [ formValues, handleInputChange ] = useForm({
+	const [formValues, handleInputChange] = useForm({
 		email: 'mirco@carlos.com',
-		password: '123456'
-	})
+		password: '123456',
+	});
 
 	const { email, password } = formValues;
 
 	const handleLogin = (e) => {
 		e.preventDefault();
 
-		dispatch(startLoginEmailAndPassword(email, password))
-
-	}
+		dispatch(startLoginEmailAndPassword(email, password));
+	};
 
 	return (
 		<div className="container formulario">
@@ -49,8 +49,13 @@ const LoginScreen = () => {
 					/>
 				</div>
 
-				<button className="formulario__boton" type="submit">Iniciar Sesion</button>
+				<button className="formulario__boton" type="submit">
+					Iniciar Sesion
+				</button>
 			</form>
+			<Link to="/auth/register" className="auth__link">
+				Create new account
+			</Link>
 		</div>
 	);
 };

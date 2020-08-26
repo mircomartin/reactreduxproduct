@@ -1,3 +1,16 @@
+.auth {
+	&__link {
+		display: block;
+		font-weight: 700;
+		margin-top: 20px;
+		color: #000;
+		&:hover {
+			color: $naranja;
+			text-decoration: none;
+		}
+	}
+}
+
 .formulario {
     max-width: 600px;
 	width: 95%;
