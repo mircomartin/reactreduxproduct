@@ -54,7 +54,7 @@ const LoginScreen = () => {
 				</button>
 			</form>
 			<Link to="/auth/register" className="auth__link">
-				Create new account
+				Crear Nueva Cuenta
 			</Link>
 		</div>
 	);

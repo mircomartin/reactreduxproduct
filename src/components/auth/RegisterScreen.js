@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import validator from 'validator';
 
 import { useForm } from '../../hooks/useForm';
@@ -53,8 +54,7 @@ const RegisterScreen = () => {
 			<form onSubmit={handleRegister} className="row">
 				{msgError && (
 					<p className="alert alert-danger d-block text-center w-100">
-						{' '}
-						{msgError}{' '}
+						{msgError}
 					</p>
 				)}
 
@@ -110,6 +110,9 @@ const RegisterScreen = () => {
 					Crear Cuenta
 				</button>
 			</form>
+			<Link to="/auth/login" className="auth__link">
+				Iniciar Sesion
+			</Link>
 		</div>
 	);
 };

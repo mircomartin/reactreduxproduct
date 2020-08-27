@@ -8,6 +8,7 @@ import { PrivateRoute } from './PrivateRoute';
 import { PublicRoute } from './PublicRoute';
 import { DashboardRoute } from './DashboardRoute';
 import { AuthRouter } from './AuthRouter';
+import { startListProducts } from '../actions/products';
 
 export const AppRouter = () => {
 
@@ -20,6 +21,7 @@ export const AppRouter = () => {
 		firebase.auth().onAuthStateChanged(async (user) => {
 			if (user?.uid) {
 				dispatch(login(user.uid, user.displayName));
+				dispatch(startListProducts())
 				setIsloggedin(true);
 			} else {
 				setIsloggedin(false);
