@@ -1,6 +1,8 @@
-import { firebase } from './../firebase/firebase-config';
 import Swal from 'sweetalert2';
+
+import { firebase } from './../firebase/firebase-config';
 import { LOGIN, LOGOUT } from './../types';
+import { cleanLogout } from './products';
 
 
 //async functions
@@ -43,13 +45,13 @@ export const startLogout = () => {
 			await firebase.auth().signOut();
 
 			dispatch(logout());
+			dispatch(cleanLogout())
 		} catch (error) {
 			console.log(error);
 			Swal.fire('Error', error.message, 'error');
 		}
 	};
 };
-
 
 //NoAsync
 export const login = (uid, name) => ({

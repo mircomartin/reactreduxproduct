@@ -5,6 +5,8 @@ import {
 	SET_PRODUCTS,
 	ACTIVE_PRODUCT,
 	DELETE_PRODUCT,
+	EDIT_PRODUCT,
+	CLEAN_LOGOUT
 } from './../types/index';
 import { db } from '../firebase/firebase-config';
 import { loadProducts } from './../helpers/loadProduct';
@@ -70,6 +72,21 @@ export const startDeleteProduct = () => {
 	};
 };
 
+export const startEditProduct = (product) => {
+	return async (dispatch, getState) => {
+		const {uid} = getState().auth
+
+		try {
+
+			await db.doc(`${uid}/hunt/products/${product.id}`).update(product);
+			dispatch(editProducts(product))
+			Swal.fire('Success', 'Producto editado con exito', 'success');
+		} catch (error) {
+			console.log(error)
+		}
+	}
+}
+
 //no async
 const newProduct = (id, product) => ({
 	type: NEW_PRODUCT,
@@ -84,6 +101,11 @@ const setProducts = (products) => ({
 	payload: products,
 });
 
+const editProducts = (product) => ({
+	type: EDIT_PRODUCT,
+	payload: product,
+});
+
 export const activeProduct = (product) => ({
 	type: ACTIVE_PRODUCT,
 	payload: product,
@@ -93,3 +115,7 @@ const deleteProduct = (id) => ({
 	type: DELETE_PRODUCT,
 	payload: id,
 });
+
+export const cleanLogout = () => ({
+	type: CLEAN_LOGOUT,
+})

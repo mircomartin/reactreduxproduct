@@ -22,7 +22,7 @@ export const Home = () => {
 			</div>
 
 			{products.map((product) => (
-				<Product key={product.id} {...product} />
+				<Product key={product.id} product={product} />
 			))}
 		</div>
 	);

@@ -1,17 +1,25 @@
 import React from 'react';
-import {useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import {activeProduct, startDeleteProduct} from './../../actions/products';
-import { Link } from 'react-router-dom';
+import { activeProduct, startDeleteProduct } from './../../actions/products';
+import { useHistory } from 'react-router-dom';
 
-export const Product = ({ id, name, price, file }) => {
+export const Product = ({ product }) => {
 	const dispatch = useDispatch();
 
-	const handleDelete = () => {
-		dispatch(activeProduct({ id, name, price, file }));
-		dispatch(startDeleteProduct());
-	}
+	const history = useHistory();
 
+	const { id, name, price, file } = product;
+
+	const handleDelete = () => {
+		dispatch(activeProduct(product));
+		dispatch(startDeleteProduct());
+	};
+
+	const handleEdit = (id) => {
+		dispatch(activeProduct(product));
+		history.push(`/product/edit/${id}`);
+	};
 
 	return (
 		<div className="row justify-content-center align-items-center mb-4">
@@ -35,8 +43,16 @@ export const Product = ({ id, name, price, file }) => {
 				</p>
 			</div>
 			<div className="col text-center">
-				<button className="product__eliminar" onClick={handleDelete}>Eliminar</button>
-				<Link to={ `./product/edit/${ id }` } onClick={() => dispatch(activeProduct({ id, name, price, file }))} className="product__editar">Editar</Link>
+				<button className="product__eliminar" onClick={handleDelete}>
+					Eliminar
+				</button>
+				<button
+					onClick={() => handleEdit(id)}
+					type="button"
+					className="product__editar"
+				>
+					Editar
+				</button>
 			</div>
 		</div>
 	);

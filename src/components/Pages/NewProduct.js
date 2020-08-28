@@ -5,7 +5,7 @@ import { useForm } from '../../hooks/useForm';
 import { showError, removeError } from '../../actions/ui';
 import { startNewProduct } from '../../actions/products';
 
-export const NewProduct = (props) => {
+export const NewProduct = ({history}) => {
 	const { msgError } = useSelector((state) => state.ui);
 	const dispatch = useDispatch();
 
@@ -40,7 +40,7 @@ export const NewProduct = (props) => {
 		reset();
 
 		setTimeout(() => {
-			props.history.push('/home');
+			history.push('/home');
 		}, 3000);
 	};
 

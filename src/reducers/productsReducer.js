@@ -1,4 +1,4 @@
-import { NEW_PRODUCT, SET_PRODUCTS, DELETE_PRODUCT, ACTIVE_PRODUCT } from './../types';
+import { NEW_PRODUCT, SET_PRODUCTS, DELETE_PRODUCT, ACTIVE_PRODUCT, EDIT_PRODUCT, CLEAN_LOGOUT } from './../types';
 
 const initialState = {
     products: [],
@@ -20,12 +20,27 @@ export const productsReducer = (state = initialState, action) => {
         case DELETE_PRODUCT:
             return {
                 ...state,
-                products: state.products.filter((product) => product.id !== state.productActive.id)
+                products: state.products.filter((product) => product.id !== state.productActive.id),
+                productActive: false,
             }
         case ACTIVE_PRODUCT:
             return {
                 ...state,
                 productActive: action.payload
+            }
+        case CLEAN_LOGOUT:
+            return {
+                ...initialState
+            }
+        case EDIT_PRODUCT:
+            return {
+                ...state,
+                products: state.products.map((product) => (
+                    product.id === action.payload.id
+                    ? action.payload
+                    : product
+                )),
+                productActive: false,
             }
         default:
             return state;
