@@ -1,13 +1,52 @@
 .product {
+    border: 1px solid $gris3;
     &__img {
-        max-width: 80px;
+        
     }
+
     &__title {
         color: #333;
-        font-size: 20px;
-        font-weight: 300;
-        line-height: 1.3;
+        font-size: 1.6rem;
+        font-weight: 700;
         margin-bottom: 0;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    &__description {
+        color: #888;
+        font-size: 1.2rem;
+        margin-bottom: 0;
+    }
+
+    &__comments {
+        margin: 1rem 0;
+        border: 1px solid $gris3;
+        img {
+            width: 32px;
+            margin-right: 2rem;
+        }
+        p {
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: 600;
+        }
+    }
+
+    &__fecha {
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+
+    &__votos {
+        text-align: center;
+        border: 1px solid $gris3;
+        padding: 0 2rem;
+        margin-right: 15px;
+        div {
+            font-size: 2rem;
+        }
     }
     &__eliminar {
         border: 1px solid #da552f;

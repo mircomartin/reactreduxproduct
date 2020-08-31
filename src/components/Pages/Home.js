@@ -1,11 +1,19 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, {useEffect} from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Product } from './Product';
+import { startListProducts } from '../../actions/products';
 
 export const Home = () => {
+	const dispatch = useDispatch()
+	
 	const { products } = useSelector((state) => state.products);
 	const { loading } = useSelector((state) => state.ui);
+
+	useEffect(() => {
+		dispatch(startListProducts())
+		// eslint-disable-next-line
+	}, [])
 
 	if(loading) {
 		return <h1>Waiting...</h1>

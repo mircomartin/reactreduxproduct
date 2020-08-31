@@ -56,6 +56,9 @@ const LoginScreen = () => {
 			<Link to="/auth/register" className="auth__link">
 				Crear Nueva Cuenta
 			</Link>
+			<Link to="/auth/populares" className="auth__link">
+				Productos Populares
+			</Link>
 		</div>
 	);
 };

@@ -2,7 +2,7 @@ import { db } from "./../firebase/firebase-config"
 
 
 export const loadProducts = async(uid) => {
-    const productsSnap = await db.collection(`${uid}/hunt/products`).get();
+    const productsSnap = await db.collection(`${uid}/hunt/products`).orderBy('createDate', 'desc').get();
 
     const products = [];
 

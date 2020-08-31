@@ -15,8 +15,8 @@ import { fileUpload } from '../helpers/fileUpload';
 
 export const startNewProduct = (product) => {
 	return async (dispatch, getState) => {
-		const { file } = product;
-		const { uid } = getState().auth;
+		const { file, name, price, description,red } = product;
+		const { uid, name: userName } = getState().auth;
 
 		try {
 			if (!file) {
@@ -27,9 +27,21 @@ export const startNewProduct = (product) => {
 				product.file = fileUrl;
 			}
 
-			const doc = await db.collection(`${uid}/hunt/products`).add(product);
+			const newProduct = {
+				userName,
+				name,
+				price, 
+				description,
+				file: product.file,
+				red,
+				likes: 0,
+				comments: [],
+				createDate: Date.now(),
+			}
 
-			dispatch(newProduct(doc.id, product));
+			const doc = await db.collection(`${uid}/hunt/products`).add(newProduct);
+
+			dispatch(addNewProduct(doc.id, newProduct));
 
 			Swal.fire('Success', 'Producto cargado con exito', 'success');
 		} catch (error) {
@@ -47,6 +59,28 @@ export const startListProducts = () => {
 			const products = await loadProducts(uid);
 			dispatch(setProducts(products));
 			dispatch(finishLoading());
+		} catch (error) {
+			console.log(error);
+			Swal.fire('Error', error.message, 'error');
+			dispatch(finishLoading());
+		}
+	};
+};
+
+export const startActiveProduct = (id) => {
+	return async (dispatch, getState) => {
+
+		dispatch(startLoading());
+		const { uid } = getState().auth;
+		try {
+
+			const productQuery = await db.collection(uid).doc("hunt").collection("products").doc(id);
+			const product = await productQuery.get();
+			
+			const active = product.data()
+			dispatch(activeProduct(product.id, active));
+			dispatch(finishLoading());
+
 		} catch (error) {
 			console.log(error);
 			Swal.fire('Error', error.message, 'error');
@@ -75,7 +109,7 @@ export const startDeleteProduct = () => {
 export const startEditProduct = (product) => {
 	return async (dispatch, getState) => {
 		const {uid} = getState().auth
-
+		
 		try {
 
 			await db.doc(`${uid}/hunt/products/${product.id}`).update(product);
@@ -88,7 +122,7 @@ export const startEditProduct = (product) => {
 }
 
 //no async
-const newProduct = (id, product) => ({
+const addNewProduct = (id, product) => ({
 	type: NEW_PRODUCT,
 	payload: {
 		id,
@@ -101,14 +135,20 @@ const setProducts = (products) => ({
 	payload: products,
 });
 
-const editProducts = (product) => ({
+const editProducts = (id, product) => ({
 	type: EDIT_PRODUCT,
-	payload: product,
+	payload: {
+		id,
+		...product,
+	},
 });
 
-export const activeProduct = (product) => ({
+export const activeProduct = (id, product) => ({
 	type: ACTIVE_PRODUCT,
-	payload: product,
+	payload: {
+		id,
+		...product,
+	},
 });
 
 const deleteProduct = (id) => ({

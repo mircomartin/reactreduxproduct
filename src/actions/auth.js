@@ -30,7 +30,7 @@ export const startLoginEmailAndPassword = (email, password) => {
 			const { user } = await firebase
 				.auth()
 				.signInWithEmailAndPassword(email, password);
-
+			
 			dispatch(login(user.uid, user.displayName));
 		} catch (error) {
 			console.log(error);
