@@ -38,7 +38,7 @@ export const NewProduct = ({history}) => {
 
 			setTimeout(() => {
 				history.push('/home');
-			}, 5000);
+			}, 4000);
 		}
 
 	};

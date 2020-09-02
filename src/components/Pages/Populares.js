@@ -1,11 +1,19 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { Product } from './Product';
+import { startListAllProducts } from '../../actions/products';
 
 export const Populares = () => {
+	const dispatch = useDispatch()
+
     const { products } = useSelector((state) => state.products);
 	const { loading } = useSelector((state) => state.ui);
+
+	useEffect(() => {
+		//dispatch(startListAllProducts())
+	}, [dispatch])
+	
 
 	if(loading) {
 		return <h1>Waiting...</h1>

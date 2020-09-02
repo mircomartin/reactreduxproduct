@@ -12,8 +12,7 @@ export const Home = () => {
 
 	useEffect(() => {
 		dispatch(startListProducts())
-		// eslint-disable-next-line
-	}, [])
+	}, [dispatch])
 
 	if(loading) {
 		return <h1>Waiting...</h1>
@@ -25,7 +24,7 @@ export const Home = () => {
 		<div className="container">
 			<div className="row">
 				<div className="col-12">
-					<h1 className="text-center">Tus productos</h1>
+					<h1 className="text-center">Productos</h1>
 				</div>
 			</div>
 

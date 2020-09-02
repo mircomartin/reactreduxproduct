@@ -10,12 +10,13 @@ export const productsReducer = (state = initialState, action) => {
         case NEW_PRODUCT:
             return {
                 ...state,
-                products: [...state.products, action.payload]
+                products: [...state.products, action.payload],
             }
         case SET_PRODUCTS:
             return {
                 ...state,
-                products: [...action.payload]
+                products: [...action.payload],
+                productActive: false,
             }
         case DELETE_PRODUCT:
             return {
@@ -40,7 +41,6 @@ export const productsReducer = (state = initialState, action) => {
                     ? action.payload.product
                     : product
                 )),
-                productActive: false,
             }
         default:
             return state;

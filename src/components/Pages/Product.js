@@ -57,7 +57,7 @@ export const Product = ({ product }) => {
 				</div>
 			</div>
 			<div className="col-auto product__votos">
-				<div>&#9650;</div>
+				<div><i className="far fa-thumbs-up"></i></div>
 				<p>{likes}</p>
 			</div>
 		</div>

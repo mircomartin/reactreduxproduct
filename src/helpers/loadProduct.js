@@ -16,3 +16,19 @@ export const loadProducts = async(uid) => {
     
     return products;
 }
+
+export const loadProductsAll = async() => {
+    const productsSnap = await db.collection("products").orderBy('createDate', 'desc').get();
+
+    const products = [];
+
+    productsSnap.forEach(snapHijo => {
+        products.push({
+            id: snapHijo.id,
+            ...snapHijo.data()
+        })
+    })
+
+    
+    return products;
+}
