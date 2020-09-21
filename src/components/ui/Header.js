@@ -29,6 +29,7 @@ export const Header = () => {
                         </form>
                         <nav className="header__nav">
                             <NavLink exact to="/home">Inicio</NavLink>
+                            <NavLink exact to="/populares">Productos</NavLink>
                             <NavLink exact to="/nuevo-producto">Nuevo Producto</NavLink>
                         </nav>
                     </div>

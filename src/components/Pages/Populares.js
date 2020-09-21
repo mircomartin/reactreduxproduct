@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { Product } from './Product';
-import { startListAllProducts } from '../../actions/products';
+import { startListProducts } from '../../actions/products';
 
 export const Populares = () => {
 	const dispatch = useDispatch()
@@ -11,7 +11,7 @@ export const Populares = () => {
 	const { loading } = useSelector((state) => state.ui);
 
 	useEffect(() => {
-		//dispatch(startListAllProducts())
+		dispatch(startListProducts())
 	}, [dispatch])
 	
 
@@ -25,7 +25,7 @@ export const Populares = () => {
 		<div className="container">
 			<div className="row">
 				<div className="col-12">
-					<h1 className="text-center">Tus productos</h1>
+					<h1 className="text-center">Todos los productos</h1>
 				</div>
 			</div>
 

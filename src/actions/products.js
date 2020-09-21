@@ -7,6 +7,7 @@ import {
 	DELETE_PRODUCT,
 	EDIT_PRODUCT,
 	CLEAN_LOGOUT,
+	INDIVIDUAL_PRODUCTS,
 } from './../types/index';
 import { db } from '../firebase/firebase-config';
 import { loadProductsAll } from './../helpers/loadProduct';
@@ -54,12 +55,28 @@ export const startNewProduct = (product) => {
 };
 
 export const startListProducts = () => {
-	return async (dispatch, getState) => {
+	return async (dispatch) => {
 		dispatch(startLoading());
-		//const { uid } = getState().auth;
 		try {
 			const products = await loadProductsAll();
 			dispatch(setProducts(products));
+			dispatch(finishLoading());
+		} catch (error) {
+			console.log(error);
+			Swal.fire('Error', error.message, 'error');
+			dispatch(finishLoading());
+		}
+	};
+};
+
+export const startListIndividualProducts = () => {
+	return async (dispatch, getState) => {
+		dispatch(startLoading());
+		const { uid } = getState().auth;
+		try {
+			const products = await loadProductsAll();
+			dispatch(setProducts(products));
+			dispatch(individualProducts(uid, products));
 			dispatch(finishLoading());
 		} catch (error) {
 			console.log(error);
@@ -137,6 +154,14 @@ const addNewProduct = (id, product) => ({
 const setProducts = (products) => ({
 	type: SET_PRODUCTS,
 	payload: products,
+});
+
+const individualProducts = (uid, products) => ({
+	type: INDIVIDUAL_PRODUCTS,
+	payload: {
+		uid,
+		products
+	},
 });
 
 const editProducts = (id, product) => ({

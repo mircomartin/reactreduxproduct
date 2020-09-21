@@ -50,7 +50,7 @@ const RegisterScreen = () => {
 
 	return (
 		<div className="container formulario">
-			<h1>Crear Cuenta</h1>
+			<h1 className="mt-5">Crear Cuenta</h1>
 			<form onSubmit={handleRegister} className="row">
 				{msgError && (
 					<p className="alert alert-danger d-block text-center w-100">

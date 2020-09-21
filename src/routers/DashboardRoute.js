@@ -6,6 +6,7 @@ import { Home } from '../components/pages/Home'
 import { NewProduct } from '../components/pages/NewProduct'
 import { EditProduct } from '../components/pages/EditProduct';
 import { ProductScreen } from '../components/pages/ProductScreen';
+import { Populares } from '../components/pages/Populares';
 
 export const DashboardRoute = () => {
     return (
@@ -15,6 +16,7 @@ export const DashboardRoute = () => {
             <div className="container py-2">
                 <Switch>
                     <Route exact path="/home" component={Home} />
+                    <Route exact path="/populares" component={Populares} />
                     <Route exact path="/nuevo-producto" component={NewProduct} />
                     <Route exact path="/product/:id" component={ ProductScreen } />
                     <Route exact path="/product/edit/:id" component={ EditProduct } />

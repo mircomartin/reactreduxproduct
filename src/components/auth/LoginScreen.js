@@ -23,7 +23,7 @@ const LoginScreen = () => {
 
 	return (
 		<div className="container formulario">
-			<h1>Iniciar Sesion</h1>
+			<h1 className="mt-5">Iniciar Sesion</h1>
 			<form onSubmit={handleLogin} className="row">
 				<div className="col-12 formulario__campo">
 					<label htmlFor="email">Email</label>
